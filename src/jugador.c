@@ -35,10 +35,6 @@ typedef struct {
     unsigned int F;
 } Sincronizacion;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
 
 
 const int movimientos[4] = {0, 2, 4, 6}; 
