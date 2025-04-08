@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <sys/mman.h>
 #include <semaphore.h>
 #include <signal.h>
 #include <stdbool.h>
-#include <fcntl.h>
+#include <string.h>
 
 #define SHM_STATE_NAME "/game_state"
 #define SHM_SYNC_NAME "/game_sync"
 
+// Estructuras deben coincidir EXACTAMENTE con el master
 typedef struct {
     char nombre[16];
     unsigned int puntaje;
@@ -26,7 +28,7 @@ typedef struct {
     unsigned int num_jugadores;
     Jugador jugadores[9];
     bool juego_terminado;
-    int tablero[]; 
+    int tablero[]; // Flexible array member para el tablero
 } EstadoJuego;
 
 typedef struct {
@@ -39,23 +41,59 @@ typedef struct {
 } Sincronizacion;
 
 EstadoJuego *estado;
+Sincronizacion *sincro;
 
-int main(int argc, char *argv[]){
-    int fd= shm_open("/game_state", O_RDONLY, 0666);
+void liberar_recursos(int signum) {
+    (void)signum;
+    munmap(estado, sizeof(EstadoJuego) + (estado->ancho * estado->alto * sizeof(int)));
+    munmap(sincro, sizeof(Sincronizacion));
+    exit(0);
+}
 
-    estado= mmap(NULL, sizeof(EstadoJuego), PROT_READ, MAP_SHARED, fd, 0);
-    while(1){
-        printf("\n--- TABLERO ---\n");
-        for(int y = 0; y < estado->alto; y++) {
-            for(int x = 0; x < estado->ancho; x++) {
-                int valor = estado->tablero[y * estado->ancho + x];
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        fprintf(stderr, "Uso: %s <ancho> <alto>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
 
-                if(valor > 0)       printf("[%2d]", valor);  // Casilla con puntos
-                else if(valor < 0)  printf(" P%d ", -valor); // Jugador
-                else                printf(" ██ ");         // Casilla ocupada
+    signal(SIGINT, liberar_recursos);
+    
+    // Obtener dimensiones reales del tablero
+    unsigned short ancho = atoi(argv[1]);
+    unsigned short alto = atoi(argv[2]);
+    
+    // Mapear estado
+    int fd_state = shm_open(SHM_STATE_NAME, O_RDONLY, 0666);
+    size_t state_size = sizeof(EstadoJuego) + (ancho * alto * sizeof(int));
+    estado = mmap(NULL, state_size, PROT_READ, MAP_SHARED, fd_state, 0);
+    
+    // Mapear sincronización
+    int fd_sync = shm_open(SHM_SYNC_NAME, O_RDWR, 0666);
+    sincro = mmap(NULL, sizeof(Sincronizacion), PROT_READ | PROT_WRITE, MAP_SHARED, fd_sync, 0);
+
+    while (1) {
+        sem_wait(&sincro->A); // Esperar señal del master
+        
+        // Imprimir estado crudo para diagnóstico
+        printf("=== ESTADO ACTUAL ===\n");
+        printf("Jugadores activos: %u\n", estado->num_jugadores);
+        
+        // Imprimir tablero línea por línea
+        for (int y = 0; y < estado->alto; y++) {
+            for (int x = 0; x < estado->ancho; x++) {
+                int val = estado->tablero[y * estado->ancho + x];
+                if (val > 0) printf("[%2d]", val);
+                else if (val < 0) printf(" P%d ", -val);
+                else printf("XXXX");
             }
             printf("\n");
         }
+        
+        
+        fflush(stdout);
+        
+        sem_post(&sincro->B); // Notificar al master
     }
+
     return 0;
 }
