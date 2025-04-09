@@ -39,8 +39,6 @@ EstadoJuego *estado;
 Sincronizacion *sincro;
 int mi_indice = -1;
 
-// Direcciones: 0=Arriba, 1=Arriba-Derecha, 2=Derecha, 3=Abajo-Derecha, 
-// 4=Abajo, 5=Abajo-Izquierda, 6=Izquierda, 7=Arriba-Izquierda
 const short dx[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 const short dy[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
@@ -58,7 +56,8 @@ bool dentro_del_tablero(int x, int y) {
 }
 
 bool celda_disponible(int x, int y) {
-    return estado->tablero[y * estado->ancho + x] > 0;
+    int val = estado->tablero[y * estado->ancho + x];
+    return val > 0 || val == -mi_indice; // Celdas con recompensa o propias
 }
 
 void barajar_direcciones(unsigned char *direcciones) {
@@ -72,61 +71,77 @@ void barajar_direcciones(unsigned char *direcciones) {
 
 void generar_movimiento_adaptativo() {
     if (mi_indice == -1 || estado->juego_terminado || 
-        estado->jugadores[mi_indice].bloqueado) return;
+        estado->jugadores[mi_indice].bloqueado) {
+       // dprintf(STDERR_FILENO, "Jugador %d: No puede mover (índice: %d, juego terminado: %d, bloqueado: %d)\n", 
+               // mi_indice, mi_indice, estado->juego_terminado, estado->jugadores[mi_indice].bloqueado);
+        return;
+    }
 
     Jugador *yo = &estado->jugadores[mi_indice];
-    unsigned char direcciones[8] = {0,1,2,3,4,5,6,7};
-    int mejores[3] = {-1, -1, -1};
-    int max_recompensa = 0;
-
-    // Barajar direcciones para exploración aleatoria
+    unsigned char direcciones[8] = {0, 1, 2, 3, 4, 5, 6, 7};
     barajar_direcciones(direcciones);
 
-    // Buscar las 3 mejores opciones
+    int max_recompensa = 0;
+    unsigned char mejores[8];
+    int num_mejores = 0;
+    unsigned char alternativas[8];
+    int num_alternativas = 0;
+
     for (int i = 0; i < 8; i++) {
         unsigned char dir = direcciones[i];
         int nx = yo->x + dx[dir];
         int ny = yo->y + dy[dir];
-        
-        if (dentro_del_tablero(nx, ny)){
+        if (dentro_del_tablero(nx, ny)) {
             int recompensa = estado->tablero[ny * estado->ancho + nx];
-            
-            if (recompensa > 0) {
+            if (recompensa > 0 && (nx != yo->x || ny != yo->y)) {
                 if (recompensa > max_recompensa) {
                     max_recompensa = recompensa;
                     mejores[0] = dir;
+                    num_mejores = 1;
                 } else if (recompensa == max_recompensa) {
-                    if (mejores[1] == -1) mejores[1] = dir;
-                    else mejores[2] = dir;
+                    mejores[num_mejores++] = dir;
                 }
+            } else if (recompensa == 0 && (nx != yo->x || ny != yo->y)) {
+                alternativas[num_alternativas++] = dir;
+            } else {
+               // dprintf(STDERR_FILENO, "Jugador %d: Celda (%d, %d) no disponible, valor: %d\n", 
+                        //mi_indice, nx, ny, recompensa);
             }
         }
     }
 
-    // Seleccionar movimiento
-    unsigned char movimiento = 8; // Inválido
-    for (int i = 0; i < 3; i++) {
-        if (mejores[i] != -1) {
-            movimiento = mejores[i];
-            break;
-        }
+    unsigned char movimiento;
+    int nx, ny;
+    if (num_mejores > 0) {
+        int idx = rand() % num_mejores;
+        movimiento = mejores[idx];
+        nx = yo->x + dx[movimiento];
+        ny = yo->y + dy[movimiento];
+       // dprintf(STDERR_FILENO, "Jugador %d: Decidió moverse a (%d, %d) con recompensa %d desde (%d, %d), dir=%d\n", 
+                //mi_indice, nx, ny, max_recompensa, yo->x, yo->y, movimiento);
+    } else if (num_alternativas > 0) {
+        int idx = rand() % num_alternativas;
+        movimiento = alternativas[idx];
+        nx = yo->x + dx[movimiento];
+        ny = yo->y + dy[movimiento];
+        //dprintf(STDERR_FILENO, "Jugador %d: Decidió moverse a (%d, %d) sin recompensa (celda propia) desde (%d, %d), dir=%d\n", 
+                //mi_indice, nx, ny, yo->x, yo->y, movimiento);
+    } else {
+        //dprintf(STDERR_FILENO, "Jugador %d: Sin movimientos válidos desde (%d, %d) - esperando terminación del juego.\n", 
+             //   mi_indice, yo->x, yo->y);
+        return; // No enviar movimiento, indicar que está bloqueado
     }
 
-    // Si no encuentra, intentar movimiento de escape
-    if (movimiento == 8) {
-        for (int i = 0; i < 8; i++) {
-            int nx = yo->x + dx[i];
-            int ny = yo->y + dy[i];
-            if (dentro_del_tablero(nx, ny)) {
-                movimiento = i;
-                break;
-            }
-        }
-    }
-
-    if (movimiento != 8) {
+    // Revalidar el movimiento justo antes de enviarlo
+    sincronizar_lectura();
+    if (estado->tablero[ny * estado->ancho + nx] > 0 || estado->tablero[ny * estado->ancho + nx] == -mi_indice) {
+        //dprintf(STDERR_FILENO, "Jugador %d: Enviando movimiento a (%d, %d), dir=%d\n", mi_indice, nx, ny, movimiento);
         write(STDOUT_FILENO, &movimiento, 1);
+    } else {
+        //dprintf(STDERR_FILENO, "Jugador %d: Movimiento a (%d, %d) ya no es válido, valor: %d\n", 
+               // mi_indice, nx, ny, estado->tablero[ny * estado->ancho + nx]);
     }
+    liberar_lectura();
 }
 
 void sincronizar_lectura() {
@@ -135,6 +150,7 @@ void sincronizar_lectura() {
     sincro->F++;
     if (sincro->F == 1) sem_wait(&sincro->D);
     sem_post(&sincro->E);
+    sem_post(&sincro->C);
 }
 
 void liberar_lectura() {
@@ -142,13 +158,11 @@ void liberar_lectura() {
     sincro->F--;
     if (sincro->F == 0) sem_post(&sincro->D);
     sem_post(&sincro->E);
-    sem_post(&sincro->C);
 }
 
 int main(int argc, char *argv[]) {
     srand(time(NULL) ^ getpid());
     
-    // Conectar a memorias compartidas
     int fd_state = shm_open(SHM_STATE_NAME, O_RDONLY, 0666);
     estado = mmap(NULL, sizeof(EstadoJuego) + (100 * sizeof(int)), 
                 PROT_READ, MAP_SHARED, fd_state, 0);
@@ -157,7 +171,6 @@ int main(int argc, char *argv[]) {
     sincro = mmap(NULL, sizeof(Sincronizacion), 
                 PROT_READ | PROT_WRITE, MAP_SHARED, fd_sync, 0);
 
-    // Esperar inicialización
     usleep(100000);
     encontrar_indice_jugador();
 
@@ -169,8 +182,12 @@ int main(int argc, char *argv[]) {
         }
         
         liberar_lectura();
-        usleep(30000 + (rand() % 40000)); // Tiempo variable entre movimientos
+        usleep(10000 + (rand() % 20000)); // 10-30 ms
     }
 
+    munmap(estado, sizeof(EstadoJuego) + (100 * sizeof(int)));
+    munmap(sincro, sizeof(Sincronizacion));
+    close(fd_state);
+    close(fd_sync);
     return 0;
 }

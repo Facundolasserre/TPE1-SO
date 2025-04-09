@@ -32,8 +32,8 @@ typedef struct {
 } EstadoJuego;
 
 typedef struct {
-    sem_t A; 
-    sem_t B;
+    sem_t A; //print_needed
+    sem_t B; //print_done
     sem_t C;
     sem_t D;
     sem_t E;
@@ -83,14 +83,14 @@ int main(int argc, char *argv[]) {
             for (int x = 0; x < estado->ancho; x++) {
                 int val = estado->tablero[y * estado->ancho + x];
                 if (val > 0) printf("[%2d]", val);
-                else if (val < 0) printf(" P%d ", -val);
-                else printf("XXXX");
+                else if (val <= 0) printf(" P%d ", -val);
+                //else printf(" P0 ");
             }
             printf("\n");
         }
         
         
-        fflush(stdout);
+       fflush(stdout);
         
         sem_post(&sincro->B); // Notificar al master
     }

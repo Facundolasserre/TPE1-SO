@@ -1,14 +1,10 @@
-# TPE1-SO
 
-/*
-.
-├── Makefile
-├── informe.pdf
-├── src/
-│   ├── master.c         # Lógica del proceso máster
-│   ├── vista.c          # Lógica de la vista
-│   ├── jugador.c        # Lógica base del jugador (IA sencilla)
-│   ├── shmem.c          # Funciones para manejar memoria compartida
-│   ├── semaphores.c     # Funciones para semáforos
-│   ├── game_state.c     # Funciones para manipular el estado del juego
-│   └── utils.h          # Definiciones de structs y constantes*/
+# TPE1-SO: ChompChamps
+
+## Descripción
+Este proyecto implementa el juego "ChompChamps", un juego concurrente en el que múltiples jugadores (bots) compiten por recolectar recompensas en un tablero compartido. El sistema utiliza memoria compartida y semáforos para coordinar las acciones entre un proceso master, los jugadores, y una vista que muestra el estado del juego.
+
+### Objetivo
+- **Master**: Controla el estado del juego, actualiza el tablero y coordina a los jugadores y la vista.
+- **Jugadores**: Bots que se mueven en el tablero buscando maximizar su puntaje al ocupar celdas con recompensas.
+- **Vista**: Muestra el estado actual del tablero y los jugadores activos.
