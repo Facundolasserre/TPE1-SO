@@ -6,8 +6,10 @@
 extern EstadoJuego *estado;
 extern Sincronizacion *sincro;
 
+
+
 void sincronizar_lectura();
 void liberar_lectura();
-void inicializar_shm();
+
 
 #endif

@@ -5,9 +5,9 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#define SHM_STATE_NAME "/game_state"
-#define SHM_SYNC_NAME "/game_sync"
-#define MAX_INTENTOS 8
+// #define SHM_STATE_NAME "/game_state"
+// #define SHM_SYNC_NAME "/game_sync"
+#define MAX_JUGADORES 9
 
 typedef struct {
     char nombre[16];
@@ -29,8 +29,12 @@ typedef struct {
 } EstadoJuego;
 
 typedef struct {
-    sem_t A, B, C, D, E;
-    unsigned int F;
+    sem_t sem_imprimir,
+     sem_impreso, 
+     mutex_estado, 
+     mutex_juego, 
+     mutex_lectura;
+    unsigned int cant_lectores;
 } Sincronizacion;
 
 #endif

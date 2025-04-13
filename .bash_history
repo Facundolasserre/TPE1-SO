@@ -1,45 +1,77 @@
-make
-ls
 cd root
-ls
-make
-make
-make
-make
-clear
-make
-make clean && make
-clear
-make
-make clean && make
-make clean && make
-make clean && make
-clear
-make clean && make
-make clean && make
-make clean && make
-make clean && make
-clear
-make clean && make
-ls
-cd ..
-ls
-make clean && make
-cd root
+./ChompChamps -w 10 -h 10 -v ./bin/vista -p ./bin/jugador 
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador 
 make clean && make
 gcc -o vista vista.c -lrt -pthread
- make clean && make
-make clean && make
-./ChompChamps -w 20 -h 20 -v ./vista.c -p ./jugador.c
-./ChompChamps -w 20 -h 20 -v ./vista.c -p ./jugador.c
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador 
+make clean
+make
+make run
+./ChompChamps -v ./vista
+./ChompChamps -v ./jugador
+./ChompChamps -p ./jugador
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+./ChompChamps -p ./jugador
+strace -f -o log.txt ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugado
 ls
-./ChompChamps -w 20 -h 20 -v ./bin/vista.c -p ./bin/jugador.c
-ls -l bin/
-chmod +x ./bin/vista
-chmod +x ./bin/jugador
-./ChompChamps -w 20 -h 20 -v ./bin/vista.c -p ./bin/jugador.c
-./ChompChamps -w 20 -h 20 -v ./vista.c -p ./jugador.c
-ls -l ./bin/vista
-ls -l ./bin/jugador
-./ChompChamps -w 20 -h 20 -v ./bin/vista.c -p ./bin/jugador.c
-./ChompChamps -w 20 -h 20 -d 200 -t 10 -s 1744402554 -v ./bin/vista -p ./bin/jugador
+rm -f /dev/shm/game_state /dev/shm/game_sync
+chmod +x vista jugador
+chmod +x vista jugador
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+ls -l /dev/shm/game_*
+rm -f /dev/shm/game_state /dev/shm/game_sync
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ... 
+ls -l /dev/shm/game_*
+mount | grep /dev/shm
+ls -l /dev/shm/game_*
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -lpthread
+gcc -o vista vista.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador
+make clean    
+gcc -o vista vista.c -lrt -pthread
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -lpthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador
+chmod +x ChompChamps 
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -lpthread
+gcc -o vista vista.c -lrt -pthread
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -lpthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -lpthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador
+gcc -o vista vista.c -lrt -pthread
+gcc -o vista vista.c -lrt -pthread
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -lpthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador
+lsof /dev/shm/game_state
+gdb --args ./jugador  
+gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -lpthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador
+./ChompChamps -w 10 -h 10 -v ./vista -p $(seq 9 | xargs -I{} echo ./jugador)
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+valgrind --track-origins=yes --leak-check=full --trace-children=yes --show-leak-kinds=all ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p $(seq 9 | xargs -I{} echo ./jugador)
+strace ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+strace -f -o strace_output.txt ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+gcc -g -o vista vista.c -lrt -pthread
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
