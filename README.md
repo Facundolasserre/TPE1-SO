@@ -23,8 +23,12 @@ Este proyecto implementa el juego "ChompChamps", un juego concurrente en el que 
    
    compilar vista: gcc -g -o vista vista.c -lrt -pthread
 
-    compilar jugador: gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+    compilar jugador: gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
 
-    correr: ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador 
+    correr (master catedra): ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador 
+
+    correr (nuestro master): gcc -Wall -Werror -pthread -lrt master.c shmemory.c logica.c argumentos.c -o master
+
+
 
 

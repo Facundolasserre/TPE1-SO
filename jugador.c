@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include "game_state.h"
-#include "game_logic.h"
+#include "logica.h"
 #include "shmemory.h"
 
 #define SHM_STATE_NAME "/game_state"

@@ -1,5 +1,5 @@
-#ifndef GAME_LOGIC_H
-#define GAME_LOGIC_H
+#ifndef LOGICA_H
+#define LOGICA_H
 
 #include "game_state.h"
 
@@ -8,7 +8,10 @@ extern int mi_indice;
 
 extern const short int dx[8];
 extern const short int dy[8];
-// void encontrar_indice_jugador();
+
+void encontrar_indice_jugador();
+void ubicar_jugadores(EstadoJuego *estado);
+void inicializar_tablero(EstadoJuego *estado, size_t semilla);
 
 // bool dentro_del_tablero(int x, int y);
 

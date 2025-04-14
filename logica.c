@@ -1,4 +1,4 @@
-#include "game_logic.h"
+#include "logica.h"
 #include "game_state.h"
 #include <stdlib.h>
 #include <time.h>
@@ -23,6 +23,28 @@ void encontrar_indice_jugador() {
         }
     }
 }
+
+void inicializar_tablero(EstadoJuego *estado, size_t semilla){
+    srand(semilla);
+    for(int i = 0; i < estado->ancho * estado->alto; i++){
+        estado->tablero[i] = (rand() % 9) + 1;
+    }
+}
+
+
+void ubicar_jugadores(EstadoJuego *estado){
+    for (int i = 0; i < estado->num_jugadores; i++) {
+		estado->jugadores[i].x = (estado->ancho / (estado->num_jugadores + 1)) * (i + 1);
+		estado->jugadores[i].y = estado->alto / 2;
+		estado->jugadores[i].puntaje = 0;
+		estado->jugadores[i].mov_invalidos = 0;
+		estado->jugadores[i].mov_validos = 0;
+		estado->jugadores[i].bloqueado = false;
+		snprintf(estado->jugadores[i].nombre, sizeof(estado->jugadores[i].nombre),
+				 "Jugador %d", i + 1);
+	}
+}
+
 
 // bool dentro_del_tablero(int x, int y) {
 //     return (x >= 0 && y >= 0 && x < estado->ancho && y < estado->alto);

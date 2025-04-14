@@ -3,7 +3,7 @@ cd root
 ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador 
 make clean && make
 gcc -o vista vista.c -lrt -pthread
-gcc -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -o jugador jugador.c game_logic .c shmemory.c -lrt -pthread
 ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador 
 make clean
 make
@@ -75,3 +75,47 @@ gcc -g -o vista vista.c -lrt -pthread
  ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
 gcc -g -o vista vista.c -lrt -pthread
  ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+cd root
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+ ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador ./jugador 
+cd root
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c game_logic.c shmemory.c -lrt -pthread
+gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+gcc -g -o vista vista.c -lrt -pthread
+./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador

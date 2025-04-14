@@ -9,7 +9,7 @@
 #include <string.h>
 #include "game_state.h"
 #include "vista.h"
-#include "game_logic.h"
+#include "logica.h"
 
 #define SHM_STATE_NAME "/game_state"
 #define SHM_SYNC_NAME "/game_sync"
