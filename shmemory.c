@@ -66,12 +66,12 @@ void inicializar_sincro(Sincronizacion *sincro) {
     sem_init(&sincro->mutex_lectura, 1, 1);
 }
 
-// pid_t crear_proceso(const char *path, char *ancho, char *alto) {
-//     pid_t pid = fork();
-//     if (pid == 0) {
-//         execl(path, path, ancho, alto, NULL);
-//         perror("execl");
-//         exit(EXIT_FAILURE);
-//     }
-//     return pid;
-// }
+pid_t crear_proceso(const char *path, char *ancho, char *alto) {
+    pid_t pid = fork();
+    if (pid == 0) {
+        execl(path, path, ancho, alto, NULL);
+        perror("execl");
+        exit(EXIT_FAILURE);
+    }
+    return pid;
+}

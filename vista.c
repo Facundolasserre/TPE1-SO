@@ -19,13 +19,6 @@ const char *colores[]={ROJO, VERDE, AZUL, AMARILLO, MAGENTA, CIAN, VIOLETA, NARA
 EstadoJuego *estado;
 Sincronizacion *sincro;
 
-// void liberar_recursos(int signum) {
-//     (void)signum;
-//     munmap(estado, sizeof(EstadoJuego) + (estado->ancho * estado->alto * sizeof(int)));
-//     munmap(sincro, sizeof(Sincronizacion));
-//     exit(0);
-// }
-
 
 
 void imprimir_tablero(EstadoJuego *estado){
@@ -82,7 +75,7 @@ void imprimir_final(EstadoJuego *estado) {
     for (int i = 0; i < estado->num_jugadores; i++) {
         int idx = indices[i];
         const char *nombre = estado->jugadores[idx].nombre[0] ? estado->jugadores[idx].nombre : "Unknown";
-        printf(" %s[%s](%d)\033[0m: %dpts con %d solicitudes de mov. validas y %d solicitudes de mov. invalidas.\n", colores[idx], nombre, idx+1 ,estado->jugadores[idx].puntaje, estado->jugadores[idx].mov_validos, estado->jugadores[idx].mov_invalidos);
+        printf(" %s[%s]\033[0m: %dpts con %d solicitudes de mov. validas y %d solicitudes de mov. invalidas.\n", colores[idx], nombre ,estado->jugadores[idx].puntaje, estado->jugadores[idx].mov_validos, estado->jugadores[idx].mov_invalidos);
     }
     printf("\n\033[36m=========================================================="
            "===========================\033[0m\n\n");

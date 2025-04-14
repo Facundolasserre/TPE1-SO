@@ -5,8 +5,8 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-// #define SHM_STATE_NAME "/game_state"
-// #define SHM_SYNC_NAME "/game_sync"
+#define SHM_STATE_NAME "/game_state"
+#define SHM_SYNC_NAME "/game_sync"
 #define MAX_JUGADORES 9
 
 typedef struct {
