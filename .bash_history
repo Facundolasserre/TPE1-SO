@@ -119,3 +119,8 @@ gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
 gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
 gcc -g -o vista vista.c -lrt -pthread
 ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador
+cd root
+make
+make
+make run_chomp
+make run
