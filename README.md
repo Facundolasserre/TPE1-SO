@@ -2,9 +2,13 @@
 # TPE1-SO: ChompChamps
 
 # Integrantes:
-   Franco Ferrari 63094
-   Octavio Zacagnino 64255
-   Facundo Lasserre 62165
+
+   * Franco Ferrari, 63094
+   
+   * Octavio Zacagnino, 64255
+   
+   * Facundo Lasserre, 62165
+   
 
 ## Descripción
 Este proyecto implementa el juego "ChompChamps", un juego concurrente en el que múltiples jugadores (bots) compiten por recolectar recompensas en un tablero compartido. El sistema utiliza memoria compartida y semáforos para coordinar las acciones entre un proceso master, los jugadores, y una vista que muestra el estado del juego.
