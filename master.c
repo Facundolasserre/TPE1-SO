@@ -27,10 +27,10 @@ EstadoJuego *estado;
 Sincronizacion *sincro;
 
 int main(int argc, char * argv[]) {
-    int ancho = 10;
-    int largo = 10;
-    int retardo = 100;
-    int timeout = 10;
+    int ancho = ANCHO_DEFAULT;
+    int largo = LARGO_DEFAULT;
+    int retardo = RETARDO_DEFAULT;
+    int timeout = TIMEOUT_DEFAULT;
     size_t semilla = time(NULL);
     char * path_vista = NULL;
     char * path_jugadores[MAX_JUGADORES];

@@ -13,16 +13,6 @@
 const short int dx[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 const short int dy[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
-int mi_indice = 0;
-
-void encontrar_indice_jugador() {
-    for (unsigned int i = 0; i < estado->num_jugadores; i++) {
-        if (estado->jugadores[i].pid == getpid()) {
-            mi_indice = i;
-            break;
-        }
-    }
-}
 
 void inicializar_tablero(EstadoJuego *estado, size_t semilla){
     srand(semilla);

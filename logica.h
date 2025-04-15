@@ -4,12 +4,12 @@
 #include "game_state.h"
 
 extern EstadoJuego *estado;
-extern int mi_indice;
+
 
 extern const short int dx[8];
 extern const short int dy[8];
 
-void encontrar_indice_jugador();
+
 
 void ubicar_jugadores(EstadoJuego *estado);
 
