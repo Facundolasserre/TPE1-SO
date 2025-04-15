@@ -60,9 +60,9 @@ clean:
 # Ejecutar con nuestro master
 run: all
 	chmod +x $(MASTER)
-	./$(MASTER) -w 10 -h 10 -v ./$(VISTA) -p ./$(JUGADOR)
+	./$(MASTER) -w 10 -h 10 -v ./$(VISTA) -p ./$(JUGADOR) ./$(JUGADOR) ./$(JUGADOR)
 
 # Ejecutar con master de la cátedra (ChompChamps)
 run_chomp:
 	chmod +x ChompChamps
-	./ChompChamps -w 10 -h 10 -v ./$(VISTA) -p ./$(JUGADOR)
+	./ChompChamps -w 10 -h 10 -v ./$(VISTA) -p ./$(JUGADOR) ./$(JUGADOR) ./$(JUGADOR)

@@ -124,3 +124,5 @@ make
 make
 make run_chomp
 make run
+cd root
+make run_chomp

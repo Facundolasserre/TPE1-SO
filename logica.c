@@ -24,8 +24,8 @@ void inicializar_tablero(EstadoJuego *estado, size_t semilla){
 
 void ubicar_jugadores(EstadoJuego *estado){
     for (int i = 0; i < estado->num_jugadores; i++) {
-		estado->jugadores[i].x = (estado->ancho / (estado->num_jugadores + 1)) * (i + 1);
-		estado->jugadores[i].y = estado->alto / 2;
+		estado->jugadores[i].x = estado->ancho / (rand() % estado->ancho);
+		estado->jugadores[i].y = estado->alto / (rand() % estado->alto);
 		estado->jugadores[i].puntaje = 0;
 		estado->jugadores[i].mov_invalidos = 0;
 		estado->jugadores[i].mov_validos = 0;
