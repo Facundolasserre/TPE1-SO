@@ -1,6 +1,11 @@
 
 # TPE1-SO: ChompChamps
 
+# Integrantes:
+   Franco Ferrari 63094
+   Octavio Zacagnino 64255
+   Facundo Lasserre 62165
+
 ## Descripción
 Este proyecto implementa el juego "ChompChamps", un juego concurrente en el que múltiples jugadores (bots) compiten por recolectar recompensas en un tablero compartido. El sistema utiliza memoria compartida y semáforos para coordinar las acciones entre un proceso master, los jugadores, y una vista que muestra el estado del juego.
 
@@ -19,19 +24,22 @@ Este proyecto implementa el juego "ChompChamps", un juego concurrente en el que 
 
 ### Pasos:
 
-1. **Compilar los programas** (vista y jugador):
-   
-   compilar vista: gcc -g -o vista vista.c -lrt -pthread
+Asegúrese de que los archivos fuente (master.c, vista.c, jugador.c, shmemory.c, logica.c, argumentos.c) y sus encabezados estén en el directorio de trabajo.
 
-    compilar jugador: gcc -g -o jugador jugador.c logica.c shmemory.c -lrt -pthread
+**Ejecute el comando:** `make`
 
-    compilar (nuestro master): gcc -Wall -Werror -pthread -lrt master.c shmemory.c logica.c argumentos.c -o master
+Esto compila los tres binarios (master, vista, jugador) y los coloca en bin/.
 
+**Con nuestro máster:** `make run`
 
-    correr (master catedra): ./ChompChamps -w 10 -h 10 -v ./vista -p ./jugador 
+Ejecuta: ./bin/master -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador
 
-    
-    correr (nuestro master): ./master -w 10 -h 10 -v ./vista -p ./jugador 
+**Con el máster de la cátedra:*** `make run_chomp`
+
+Ejecuta: ./ChompChamps -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador
+
+**Para limpiar los archivos generados:** `make clean`
+
 
 
 
