@@ -26,6 +26,17 @@
 EstadoJuego *estado;
 Sincronizacion *sincro;
 
+pid_t crear_proceso(const char *path, char *ancho, char *alto) {
+    pid_t pid = fork();
+    if (pid == 0) {
+        execl(path, path, ancho, alto, NULL);
+        perror("execl");
+        exit(EXIT_FAILURE);
+    }
+   
+    return pid;
+}
+
 int main(int argc, char * argv[]) {
     int ancho = ANCHO_DEFAULT;
     int largo = LARGO_DEFAULT;
@@ -72,8 +83,23 @@ int main(int argc, char * argv[]) {
     //pid proceso vista
 	pid_t pid_vista = 0;
 	if(path_vista){
-	    pid_vista= crear_proceso(path_vista, ancho_str, alto_str);
+		pid_vista = fork();
+
+		if (pid_vista == 0) {
+			for(int i=0; i< cant_jugadores; i++){
+				close(pipes_jugadores[i][0]);
+			}		
+			execl(path_vista, path_vista, ancho, largo, NULL);
+			perror("execl");
+			exit(EXIT_FAILURE);
+			
+		}
+
+	   // pid_vista= crear_proceso(path_vista, ancho_str, alto_str, );
 	} 
+
+	
+
 
     time_t *tiempo_ult_mov = malloc(cant_jugadores * sizeof(time_t));
 
@@ -95,6 +121,8 @@ int main(int argc, char * argv[]) {
     return 0;
 
 }
+
+
 
 void pid_procesos(int num_jugadores, pid_t pids_jugadores[], EstadoJuego *estado, pid_t pid_vista){
 	

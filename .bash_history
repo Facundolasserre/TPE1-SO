@@ -126,3 +126,50 @@ make run_chomp
 make run
 cd root
 make run_chomp
+cd root
+make clean
+make run
+./master -h 20 -w 20 -v ./vista -p ./jugador ./jugador ./jugador ./jugador 
+ps -a
+for i in {298..303}; do lsof -p $i | grep pipe; echo; done
+makeclean
+make clean
+make run
+ps -a
+for i in {727..731}; do lsof -p $i | grep pipe; echo; done
+make clean
+make run
+ps -a
+for i in {880..884}; do lsof -p $i | grep pipe; echo; done
+make clean
+make
+make run
+ps -a
+for i in {968..972}; do lsof -p $i | grep pipe; echo; done
+make clean
+make
+make run
+ps -a
+for i in {1100..1104}; do lsof -p $i | grep pipe; echo; done
+make clean
+make
+make run
+ps -a
+lsof -p 1200 | grep | 
+lsof -p 1200 | grep pipe
+lsof -p 1196 | grep pipe
+make clean
+make
+make run
+ps -a
+lsof -p 1289 | grep pipe
+lsof -p 1293 | grep pipe
+make clean
+make
+make run
+make clean
+make
+clear
+make clean
+make
+make run

@@ -13,7 +13,7 @@ void liberar_lectura();
 void * crear_shms(const char * nombre, size_t size);
 void inicializar_shms(EstadoJuego **estado, Sincronizacion ** sincro, int ancho, int largo, int cant_jugadores, size_t semilla);
 void inicializar_sincro(Sincronizacion * sincro);
-pid_t crear_proceso(const char *path, char *ancho, char *alto);
+
 
 
 #endif
