@@ -215,3 +215,81 @@ make clean
 clear
 exit
 exit
+cd root
+make run
+./ChompChamps -h 10 -w 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador
+ ./bin/jugador
+ ./bin/jugador
+ ./bin/jugador
+./ChompChamps -h 10 -w 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./ChompChamps -h 10 -w 10 -v ./bin/vista -p ./bin/jugador ./jugador ./jugador 
+make clean
+make
+./ChompChamps -h 10 -w 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./ChompChamps -h 10 -w 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador 
+ls
+cd bin
+ls
+./master -h 10 -w 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador 
+s
+make run
+make clean
+cd ..
+make run
+make clena
+make clean
+clear
+make
+make tun
+make run
+make run
+./bin/master -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador 
+./bin/master -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+make clean
+make 
+make run
+make clean
+make run
+make clean
+make run
+make run
+ps -e | grep master
+ps -e
+lsof -p 1791 | grep PIPE
+lsof -p 1792 | grep PIPE
+lsof -p 1793 | grep PIPE
+lsof -p 1794 | grep PIPE
+lsof -p 1795 | grep PIPE
+lsof -p 1791 | grep PIPE
+make run
+ps -e
+lsof -p 1791 | grep PIPE
+make run
+ps -e
+lsof -p 1791 | grep PIPE
+lsof -p 1932 | grep PIPE  # Master
+lsof -p 1933 | grep PIPE  # Jugador 1
+lsof -p 1934 | grep PIPE  # Jugador 2
+lsof -p 1935 | grep PIPE  # Jugador 3
+lsof -p 1936 | grep PIPE  # Vista
+ps -p 1932,1933,1934,1935,1936 -o pid,state,cmd
+lsof -p 1932  # Master
+lsof -p 1933  # Jugador 1
+lsof -p 1934  # Jugador 2
+lsof -p 1935  # Jugador 3
+lsof -p 1936  # Vista
+make clean
+make 
+./bin/master -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador 2> errores.log
+ps -e
+cat errores.log
+kill -9 288 1791 1792 1793 1794 1795 1932 1933 1934 1935 1936
+ps -e
+kill -9 1789 1791
+ps -e
+kill -9 1930 1932 2064 2065 2066 2067 2068 2136
+kill -9 1930 1932 2064 2065 2066 2067 2068 
+ps -e

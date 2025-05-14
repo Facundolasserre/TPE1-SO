@@ -39,6 +39,7 @@ void * crear_shms(const char * nombre, size_t size){
 		perror("mmap");
 		exit(EXIT_FAILURE);
 	}
+    close(fd);
     return puntero;
 }
 

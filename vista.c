@@ -105,6 +105,8 @@ int main(int argc, char *argv[]) {
     // Mapear sincronización
     int fd_sync = shm_open(SHM_SYNC_NAME, O_RDWR, 0666);
     sincro = mmap(NULL, sizeof(Sincronizacion), PROT_READ | PROT_WRITE, MAP_SHARED, fd_sync, 0);
+    close(fd_state);
+    close(fd_sync); 
 
     while (1) {
         if(estado->juego_terminado){

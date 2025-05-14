@@ -42,29 +42,32 @@ void crear_jugadores(EstadoJuego *estado, int pipes_jugadores[MAX_JUGADORES][2],
             break;
         }
         if(pids_jugadores[i] == 0){ //estamos en el proceso hijo
+            //cerramos todos los extremos de pipes que no se usan
+            for(int j=0; j<num_jugadores; j++){
+                if(j!=i){
+                    close(pipes_jugadores[j][0]);
+                    close(pipes_jugadores[j][1]);
+                }else{
+                    close(pipes_jugadores[j][0]);
+                }
+            }
+
+            //redirigimos STDOUT al extermo de escritura
             if(dup2(pipes_jugadores[i][1], STDOUT_FILENO) < 0){
                 perror("dup2");
                 exit(EXIT_FAILURE);
             }
+            
+            //cerramos el file descriptor original despues del dup2
             close(pipes_jugadores[i][1]);  
-            if (close(pipes_jugadores[i][0]) < 0) {
-                perror("cerrar el extremo de lectura");
-                exit(EXIT_FAILURE);
-            }
 
-            for(int j=i+1; j<num_jugadores; j++){          
-                close(pipes_jugadores[j][1]);
-                close(pipes_jugadores[j][0]);  
-            }
-            for(int k=0 ; k<i ; k++){
-                close(pipes_jugadores[k][0]);
-            }
-
+            //ejecutamos el jugador
             if(execl(path_jugadores[i], path_jugadores[i], str_ancho, str_ancho, NULL) == -1){
                 fprintf(stderr, "execl fallo por %s: %s\n", path_jugadores[i], strerror(errno));
                 exit(EXIT_FAILURE);
             }
         }
+        
         estado->jugadores[i].pid = pids_jugadores[i];
         if (close(pipes_jugadores[i][1]) < 0) {
                 perror("cerrar el extremo derecho del padre");

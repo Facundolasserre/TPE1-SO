@@ -83,18 +83,17 @@ int main(int argc, char * argv[]) {
     //pid proceso vista
 	pid_t pid_vista = 0;
 	if(path_vista){
-		pid_vista= crear_proceso(path_vista, ancho_str, alto_str);//		ESTO ES LO QUE "ESTA MAL"
-		// pid_vista = fork();									  //		ESTO ES LO QUE NOS DIJO EL PROFESOR QUE AGREGUEMOS Y LO CAMBIEMOS POR EL DE ARRIBA
+		pid_vista=fork();
 
-		// if (pid_vista == 0) {
-		// 	for(int i=0; i< cant_jugadores; i++){
-		// 		close(pipes_jugadores[i][0]);
-		// 	}		
-		// 	execl(path_vista, path_vista, ancho, largo, NULL);
-		// 	perror("execl");
-		// 	exit(EXIT_FAILURE);
-			
-		// }
+		if(pid_vista==0){
+			for(int i=0; i<cant_jugadores; i++){
+				close(pipes_jugadores[i][0]);
+			}
+
+			execl(path_vista, path_vista, ancho_str, alto_str, NULL);
+			perror("execl");
+			exit(EXIT_FAILURE);
+		}
 	} 
 
 	
