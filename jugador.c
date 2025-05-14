@@ -42,21 +42,46 @@ int main(int argc, char *argv[]) {
     sincro = mmap(NULL, sizeof(Sincronizacion), 
                 PROT_READ | PROT_WRITE, MAP_SHARED, fd_sync, 0);
 
-    usleep(10000);
-    
+    //usleep(10000); CHEQUEAR
 
-    while (!estado->juego_terminado) {
-        sincronizar_lectura();
-        
-        if (mi_indice != -1 && !estado->jugadores[mi_indice].bloqueado) {
-            unsigned char move = mov_random();
-            write(STDOUT_FILENO, &move, sizeof(move));
+    //CHEQUEAR
+    pid_t my_pid = getpid();
+    for (int i = 0; i < estado->num_jugadores; i++) {
+        if (estado->jugadores[i].pid == my_pid) {
+            mi_indice = i;
+            break;
         }
-        
-        liberar_lectura();
-        usleep(10000); 
+    }
+    if (mi_indice == -1) {
+        fprintf(stderr, "No se encontró el índice del jugador con PID %d\n", my_pid);
+        exit(EXIT_FAILURE);
     }
 
+    //CHEQUEAR
+    int ultima_suma_valida= -1;
+    int actual_suma_valida;
+    
+    //CHEQUEAR
+    while (1) {
+        //Cambio: bucle de espera activa para verificar si se procesó el mov anterior
+        do{
+            sincronizar_lectura(); //sem para lectura segura
+            //cambio: se verifican condiciones de salida
+            if (estado->juego_terminado || estado->jugadores[mi_indice].bloqueado) {
+                liberar_lectura(); 
+                goto cleanup;      
+            }
+            actual_suma_valida= estado->jugadores[mi_indice].mov_validos + estado->jugadores[mi_indice].mov_invalidos;
+            liberar_lectura();
+        } while(actual_suma_valida == ultima_suma_valida);
+        
+        ultima_suma_valida = actual_suma_valida;
+        unsigned char mov= mov_random();
+        write(STDOUT_FILENO, &mov, sizeof(mov));
+        
+    }
+
+    cleanup:
     munmap(estado, state_size);
     munmap(sincro, sizeof(Sincronizacion));
     close(fd_state);

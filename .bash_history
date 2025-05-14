@@ -293,3 +293,19 @@ ps -e
 kill -9 1930 1932 2064 2065 2066 2067 2068 2136
 kill -9 1930 1932 2064 2065 2066 2067 2068 
 ps -e
+cd root
+make clean
+make run
+make clean
+make run
+./bin/master -w 10 -h 10 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 15 -h 15 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+./bin/master -w 15 -h 15 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador

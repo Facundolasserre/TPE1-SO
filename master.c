@@ -166,10 +166,10 @@ void limpia_recursos(int pipes_jugadores[MAX_JUGADORES][2], int cant_jugadores, 
 	sem_destroy(&sincro->mutex_lectura);
 
     munmap(estado, sizeof(EstadoJuego) + (estado->ancho * estado->alto * sizeof(int)));
-    shm_unlink(SHM_STATE_GAME);
+    shm_unlink(SHM_STATE_NAME);
 
     munmap(sincro, sizeof(Sincronizacion));
-    shm_unlink(SHM_SYNC_GAME);
+    shm_unlink(SHM_SYNC_NAME);
 
 }
 
