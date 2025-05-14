@@ -46,13 +46,13 @@ void crear_jugadores(EstadoJuego *estado, int pipes_jugadores[MAX_JUGADORES][2],
                 perror("dup2");
                 exit(EXIT_FAILURE);
             }
-            close(pipes_jugadores[i][1]);
+            close(pipes_jugadores[i][1]);  
             if (close(pipes_jugadores[i][0]) < 0) {
                 perror("cerrar el extremo de lectura");
                 exit(EXIT_FAILURE);
             }
 
-            for(int j=i+1; j<num_jugadores; j++){
+            for(int j=i+1; j<num_jugadores; j++){          
                 close(pipes_jugadores[j][1]);
                 close(pipes_jugadores[j][0]);  
             }

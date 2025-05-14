@@ -173,3 +173,45 @@ clear
 make clean
 make
 make run
+cd root
+clear
+make 
+make run
+clear
+exit
+cd root/
+make clean
+ls
+make 
+make run
+make clean
+make run
+make clean
+make run chomp
+make run chompafjhhdfwnf
+clear
+exit
+cd root
+clear
+make
+make clear
+make clean
+make
+clear
+make run
+exit
+cd root
+clear
+make clean
+make
+clear
+make run
+clear
+make clean
+make
+make run
+clear
+make clean
+clear
+exit
+exit
