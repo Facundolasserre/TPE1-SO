@@ -1,0 +1,3 @@
+# Ignorar carpeta bin y archivos objeto
+bin/
+*.o

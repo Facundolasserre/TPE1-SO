@@ -42,9 +42,7 @@ int main(int argc, char *argv[]) {
     sincro = mmap(NULL, sizeof(Sincronizacion), 
                 PROT_READ | PROT_WRITE, MAP_SHARED, fd_sync, 0);
 
-    //usleep(10000); CHEQUEAR
 
-    //CHEQUEAR
     pid_t my_pid = getpid();
     for (int i = 0; i < estado->num_jugadores; i++) {
         if (estado->jugadores[i].pid == my_pid) {
@@ -57,11 +55,10 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    //CHEQUEAR
     int ultima_suma_valida= -1;
     int actual_suma_valida;
-    
-    //CHEQUEAR
+
+    //este es el principal cambio que hicimos, ahora chequea que el juego no haya finaliado adentro del while, luego de haber sincronizado la lectura
     while (1) {
         //Cambio: bucle de espera activa para verificar si se procesó el mov anterior
         do{

@@ -309,3 +309,19 @@ make run
 ./bin/master -w 30 -h 30 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
 ./bin/master -w 15 -h 15 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
 ./bin/master -w 15 -h 15 -v ./bin/vista -p ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador ./bin/jugador
+cd root
+make clean
+make
+make run
+clear
+make run
+make run
+make run
+make run
+clear
+exit
+cd root
+make clean
+make
+make run
+exit
